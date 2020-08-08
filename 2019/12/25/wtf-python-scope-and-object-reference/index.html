@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="做一个勤奋快乐的Coder ;)">
+  <meta name="author" content="StrayDragon">
+  <meta name="keywords" content>
+  <title>哇塞Python: 作用域与对象引用 - StrayDragon的小窝</title>
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/mdbootstrap/4.13.0/css/mdb.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+  <link rel="stylesheet" href="/lib/prettify/github-v2.min.css">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+  <link defer rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css">
+
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<link rel="alternate" href="/atom.xml" title="StrayDragon的小窝" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>StrayDragon的小窝</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">归档</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">分类</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">标签</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">关于</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/links/">友链</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <p class="mt-3 post-meta">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                  星期三, 十二月 25日 2019, 10:49 晚上
+                </p>
+              
+
+              <p class="mt-1">
+                
+                  
+                  <span class="post-meta">
+                    <i class="far fa-chart-bar"></i>
+                    2.3k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta">
+                      <i class="far fa-clock"></i>
+                      9 分钟
+                  </span>
+                
+
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5 z-depth-3" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <div class="markdown-body">
+              <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>Python一直以来都因看上去简单易用, 而受到不少人的青睐, 然鹅, 架不住一些历史和设计的原因 存在不少令人抓狂的规则, 让人摸不到头脑.
+<a id="more"></a></p>
+<p><img src="./wtf_title.png" srcset="/img/loading.gif" alt="wtf"></p>
+<blockquote>
+<p>来自: <a href="https://twitter.com/laike9m/status/1236846226462523393?s=19" target="_blank" rel="noopener">twitter/laike9m</a></p>
+</blockquote>
+<p>今天在瞎写自己的<code>tweedle</code>这个CLI工具时, 终于被上图的某个错误理解而导致不断报错, 于是我决定, 重拾基础, 争取通过此文整理好Python中作用域和传递对象引用的相关的坑</p>
+<p>一般这种时候没有一个非常友好的inspect方法是不行的, 那么我们需要立刻寻找相关命令行工具和模块?</p>
+<p>No~No~No~, 就我以前的开发经历来看, 常常会因解决X而递归的解决一系列路上遇到的问题,最后解决了Y…效率实在不太好, 于是掏出神器 <a href="http://pythontutor.com/" target="_blank" rel="noopener">Python Tutor</a> 来基本观察内部结构变化, 之后再上那些屠龙刀(这个作者看上去一点也Hack啊 = =|||), 具体效果如下图所示(可能有网不太好的同学,体验稍差,可以在此Repo <a href="https://github.com/pgbovine/OnlinePythonTutor" target="_blank" rel="noopener">https://github.com/pgbovine/OnlinePythonTutor</a> 按README指导自行安装部署本地版本哦):</p>
+<p><img src="./python_tutor_example.png" srcset="/img/loading.gif" alt="example"></p>
+<p>复制以下代码, 自己感受下吧!</p>
+<pre><code class="python">g = None
+def foo():
+    a = 1
+    b = 2
+    def bar():
+        print(b)
+        print(g)
+        c = 2
+    bar()
+
+foo()
+</code></pre>
+<blockquote>
+<p>注意: 未经特殊声明, 代码版本均使用 <code>CPython3.6</code></p>
+</blockquote>
+<h1 id="作用域-Scopt"><a href="#作用域-Scopt" class="headerlink" title="作用域 (Scopt)"></a>作用域 (Scopt)</h1><p>首先需要明确的一点是, 在函数中访问任何变量, 都会以特定的顺序依次查找不同层次的作用域, 具体规则表现为
+LEGB (<strong>L</strong>ocals <strong>E</strong>nclosing <strong>G</strong>lobals <strong>B</strong>uiltins) 这四级命名空间, 其中 L 与 G 都是很好观测到的, 你可以运行以下代码, 在解释器中使用<code>globals()</code>与<code>locals()</code>函数观测:</p>
+<pre><code class="python">def current_func_name():
+    import inspect
+    frame = inspect.currentframe()
+    return inspect.getouterframes(frame)[1].function
+
+g = None
+def foo():
+    a = 1
+    b = 2
+    print(&#39;\t&#39;,current_func_name(),&#39;(before bar)&#39;,locals()) # 1
+    def bar():
+        print(b)
+        print(g)
+        c = 2
+        print(&#39;\t&#39;,current_func_name(),locals()) # 2
+        print(&#39;\t&#39;,current_func_name(),&#39;g&#39; in globals()) # 3
+    bar()
+    # print(current_func_name(),globals())
+    print(&#39;\t&#39;,current_func_name(),&#39;(after bar)&#39;,locals()) # 4
+
+foo()
+# print(&#39;\t&#39;,globals()) or  print(&#39;\t&#39;,locals())
+</code></pre>
+<p>将会输出(具体地址可能会不一样,这取决于当时的运行时 指 <code>0x7f8c4ffec3a0</code>)</p>
+<pre><code>    foo before bar {&#39;a&#39;: 1, &#39;b&#39;: 2}
+2
+None
+    bar {&#39;c&#39;: 2, &#39;b&#39;: 2}
+    bar True
+    foo after bar {&#39;a&#39;: 1, &#39;b&#39;: 2, &#39;bar&#39;: &lt;function foo.&lt;locals&gt;.bar at 0x7f8c4ffec3a0&gt;}
+</code></pre><p>这里我们清楚的看到正如一开始的图片上一样的解释的一样</p>
+<ul>
+<li># 1: <code>a</code>, <code>b</code> 都是放在了 <code>Locals</code> 这个地方, 这时还未知下面的闭包函数</li>
+<li># 2: <code>c</code> 也按照期望进入了 <code>Locals</code>, 而 <code>b</code> 此时将作为 bar() 这个函数的自由变量函数而进入 <code>Locals</code></li>
+<li># 3: 也按照期望观察到 <code>g</code> 确实存在于 <code>Globals</code> 而不传递进入任何 <code>Locals</code> 中</li>
+<li># 4: <code>c</code> 不再存在于 <code>Locals</code> 作用域, 而bar这个函数作为一等公民进入foo的 <code>Locals</code></li>
+</ul>
+<p>看完这些, 你可能感觉到, 啊哼, 也没有什么不符合直觉的地方吗? 这有什么会坑的地方吗? 而且这个<code>Enclosing</code>, <code>Builtins</code>也没说啊?</p>
+<p>事实上, 好戏才刚刚开始… 观察以下代码, 觉得会输出什么</p>
+<pre><code class="python">def foo():
+    res = []
+    def bar():
+        print(b)
+    for b in range(3):
+        res.append(bar)
+    return res
+
+for f in foo():
+    f()
+</code></pre>
+<p>也许你会觉得这会报错, 因为很反直觉, 竟然<code>bar</code>函数可以引用一个之前没有 “声明/定义” 的变量, 如果你很是好奇, 将代码复制到解释器执行的话, 你会发现解释器没有任何怨言:</p>
+<pre><code>2
+2
+2
+</code></pre><p>WTF, 这发生了什么? (可以尝试使用 Python Tutor 观测)
+这里我截取重要的两个节点:</p>
+<ul>
+<li><p>第一次进入 <code>print(f())</code>之前
+<img src="./example1.png" srcset="/img/loading.gif" alt></p>
+</li>
+<li><p>第二次进入 <code>print(f())</code>之前
+<img src="./example2.png" srcset="/img/loading.gif" alt>
+可以观测到 f1:foo 的 栈帧中 相对 <code>bar</code>函数来说 <code>b</code>这个自由变量(enclosing cell var)的值就已经变为了最终值 2 了, 所以即使再次运行也只会是最终结果了, 这里这个闭包函数被延后求值了.</p>
+</li>
+</ul>
+<p>你可能还会有疑问, 为啥再之前 <code>print(b)</code> 不会导致解释器报错, 因为如果在解释器中随便输出一个”未声明”的值之前都会收到类似 <code>NameError: name &#39;a&#39; is not defined</code>的错误, 这就回到了我们最初所说的寻找顺序规则的问题, 当然在上面的情况下,发生了 L(Not Hit) -&gt; E(Hit) 的情况, 注意顺序寻找规则就能观察这些奇怪问题并排错了…</p>
+<p>问题又来了, 这个情况该如何解决呢, 可以复制解决(这里又有一个小坑, Python中的<code>=</code>仅仅是名字绑定, 它的所谓变量并不是盒子, 仅仅通过局部期望通过<code>=</code>复制一个值, 是不会成功的, 这对从C/C++转来学习的同学很有帮助, 硬要说的话, 它更类似指针, 当然也不全是如此)</p>
+<pre><code class="python">def foo():
+    res = []
+    for b in range(3):
+        def bar(o=b):
+            print(o)
+        res.append(bar)
+    return res
+
+for f in foo():
+    f()
+</code></pre>
+<p>或者调整为纯函数</p>
+<pre><code class="python">def foo():
+    res = []
+    def bar(o):
+        print(o)
+    for b in range(3):
+        res.append(bar(b))
+    return res
+
+for f in foo():
+    print(f())
+</code></pre>
+<p>言而总之, 这样直接的代码可能不太常见和实用, 但当你写代码写飘了的时候, 有可能会不小心导致这个情况发生.建议函数尽量设计为不依赖自由变量的纯函数.</p>
+<p>闭包可以很好的封装状态, 压缩参数列表, 不过隐式依赖自由变量, 会使得测试和维护变得困难, 所以, 对于过多参数的函数. 可以使用<code>functools.partial</code>函数压缩过多参数绑定, 或者使用 <code>callable object</code> 去实现</p>
+<h1 id="传递对象引用-pass-object"><a href="#传递对象引用-pass-object" class="headerlink" title="传递对象引用 (pass object)"></a>传递对象引用 (pass object)</h1><p>接下来讨论一个参数传递的问题, 对一些来自 C/C++ 背景的爱好者们, 基本上来说, 对传递参数, 有按值传递(pass by value) 与 按引用/指针传递 (pass by ref/point), 而在Python中, 整体上更像第二种, 但却有些不同, 或者叫做按引用值传递(pass ref by value)?.</p>
+<p>Python中函数得到的是参数的副本, 对其重新绑定对外面没有任何影响, 但参数始终是引用(即名字绑定), 按照不同的名字在绑定的作用域中寻找对象并修改.</p>
+<ul>
+<li>如果参数引用名字类型为可变, 那么可变对象内部可以修改, 对象底层标志不变</li>
+<li>如果参数引用名字类型为不可变, 如 <code>int</code>, <code>float</code>, <code>complex</code> 等, 内部也不可修改, 只会发生重新 bind, 底层标志也不变
+比如, 我一开始会写出这样的代码,去交换两个值:</li>
+</ul>
+<pre><code class="python">def swap(a,b):
+    print(f&#39;swap before:\t a:{a}, b:{b}&#39;)
+    t = a
+    a = b
+    b = t
+    print(f&#39;swap after:\t a:{a}, b:{b}&#39;)
+
+a = 1
+b = 3
+print(f&#39;before:\t a:{a}, b:{b}&#39;)
+swap(a,b)
+print(f&#39;after:\t a:{a}, b:{b}&#39;)
+</code></pre>
+<p>当时很不明白为何无法修改</p>
+<pre><code>before:     a:1, b:3
+swap before:     a:1, b:3
+swap after:     a:3, b:1
+after:     a:1, b:3
+</code></pre><p>即使通过查看id</p>
+<pre><code class="python">def swap(a,b):
+    print(f&#39;swap before:\t a:{a} id:{id(a)}, b:{b}, id:{id(b)}&#39;)
+    t = a
+    a = b
+    b = t
+    print(f&#39;swap after:\t a:{a} id:{id(a)}, b:{b}, id:{id(b)}&#39;)
+
+a = 1
+b = 3
+print(f&#39;before:\t a:{a} id:{id(a)}, b:{b}, id:{id(b)}&#39;)
+swap(a,b)
+print(f&#39;after:\t a:{a} id:{id(a)}, b:{b}, id:{id(b)}&#39;)
+</code></pre>
+<p>也没有看到确切变化</p>
+<pre><code>before:     a:1 id:94304221255424, b:3, id:94304221255488
+swap before:     a:1 id:94304221255424, b:3, id:94304221255488
+swap after:     a:3 id:94304221255488, b:1, id:94304221255424
+after:     a:1 id:94304221255424, b:3, id:94304221255488
+</code></pre><p>这里我以 Python Tutor 作验证:
+<img src="./example_1-1.png" srcset="/img/loading.gif" alt>
+<img src="./example_1-2.png" srcset="/img/loading.gif" alt>
+观察这两张图我发现, 在离开<code>swap</code>之后, 内部的<code>a</code>,<code>b</code>绑定不再存在, 一切恢复了原样, 这是在开玩笑吗?</p>
+<p>其实不是这里<code>a</code>,<code>b</code>发生的id改变, 仅仅是名字本身的变化, 而不是底层那个 <code>int</code>类型 的 object 发生改变, 这个对象还在原来的地方,被外层的<code>a</code>,<code>b</code>绑定着, 这也解释了为何调用<code>swap</code>不符合预期, 在<code>swap</code>内部, 由于之前提到的规则, 先于在 Locals 找到了符合的名字, 之后修改的全是这个层面的值, 而无关外部不可变的<code>a</code>,<code>b</code>状态.</p>
+<p>至于进一步的解释, 我也查询了许多资料, 由于不看源码的话, 感觉全是魔法, 日后有时间研究底层实现, 会再来更新的!</p>
+<p>写到这里, 这篇文章就差不多了, 希望可以帮助到你 <code>^_^</code></p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料:"></a>参考资料:</h1><blockquote>
+<p>Python3.6 文档 Data Model</p>
+<p>《Python3学习笔记》 雨痕</p>
+<p>《流畅的Python》Luciano Ramalho</p>
+<p><a href="https://stackoverflow.com/questions/8056130/immutable-vs-mutable-types" target="_blank" rel="noopener">https://stackoverflow.com/questions/8056130/immutable-vs-mutable-types</a></p>
+<p><a href="https://www.zhihu.com/search?type=content&amp;q=python%20%E5%AF%B9%E8%B1%A1%E4%BC%A0%E9%80%92" target="_blank" rel="noopener">https://www.zhihu.com/search?type=content&amp;q=python%20%E5%AF%B9%E8%B1%A1%E4%BC%A0%E9%80%92</a></p>
+<p><a href="https://yuyang0.github.io/articles/defects-of-python.html" target="_blank" rel="noopener">https://yuyang0.github.io/articles/defects-of-python.html</a></p>
+</blockquote>
+
+            </div>
+            <hr>
+            <div>
+              <p>
+                
+                  <span>
+                <i class="iconfont icon-inbox"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/阅读笔记/">阅读笔记</a>
+                      &nbsp;
+                    
+                  </span>&nbsp;&nbsp;
+                
+                
+                  <span>
+                <i class="iconfont icon-tag"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Python3/">Python3</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Python/">Python</a>
+                    
+                  </span>
+                
+              </p>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/01/02/development-diary-of-daily-app/">
+                        <i class="fa fa-chevron-left"></i>
+                        <span class="hidden-mobile">开发日记: 时间管理应用</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2019/12/25/fly-with-coc-nvim-in-neovim-world/">
+                        <span class="hidden-mobile">少年, 带上coc.nvim, 在 (Neo)Vim 的世界中尽情翱翔吧!</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="fa fa-chevron-right"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+              
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc-start"></div>
+<div id="toc">
+  <p class="h5"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+    <div class="col-lg-7 mx-auto nopadding-md">
+      <div class="container custom mx-auto">
+        <style>.markdown-body p{ text-indent:2em; }</style>
+      </div>
+    </div>
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.staticfile.org/mdbootstrap/4.13.0/js/mdb.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.10.0/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var navHeight = $('#navbar').height();
+      var toc = $('#toc');
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+      var tocLimMax = 2 * boardTop + boardCtn.height();
+
+      $(window).scroll(function () {
+        var tocLimMin = $('#toc-start').offset().top - navHeight;
+        var scroH = document.body.scrollTop + document.documentElement.scrollTop;
+
+        if (tocLimMin <= scroH && scroH <= tocLimMax) {
+          toc.css({
+            'display': 'block',
+            'position': 'fixed',
+            'top': navHeight,
+          });
+        } else if (scroH <= tocLimMin) {
+          toc.css({
+            'position': '',
+            'top': '',
+          });
+        } else if (scroH > tocLimMax) {
+          toc.css('display', 'none');
+        }
+      });
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc > p').css('visibility', 'visible');
+      }
+      var offset = boardCtn.css('margin-right')
+      $('#toc-ctn').css({
+        'right': offset
+      })
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+
+<!-- Plugins -->
+
+
+
+  <script  src="https://cdn.staticfile.org/prettify/188.0.0/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "哇塞Python: 作用域与对象引用&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

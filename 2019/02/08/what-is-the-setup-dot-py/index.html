@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="做一个勤奋快乐的Coder ;)">
+  <meta name="author" content="StrayDragon">
+  <meta name="keywords" content>
+  <title>&#34;这个 setup.py 是什么?&#34; - StrayDragon的小窝</title>
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/mdbootstrap/4.13.0/css/mdb.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+  <link rel="stylesheet" href="/lib/prettify/github-v2.min.css">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+  <link defer rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css">
+
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<link rel="alternate" href="/atom.xml" title="StrayDragon的小窝" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>StrayDragon的小窝</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">归档</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">分类</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">标签</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">关于</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/links/">友链</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <p class="mt-3 post-meta">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                  星期五, 二月 8日 2019, 11:55 中午
+                </p>
+              
+
+              <p class="mt-1">
+                
+                  
+                  <span class="post-meta">
+                    <i class="far fa-chart-bar"></i>
+                    1.3k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta">
+                      <i class="far fa-clock"></i>
+                      5 分钟
+                  </span>
+                
+
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5 z-depth-3" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <div class="markdown-body">
+              <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><blockquote>
+<p>如果你曾经浏览过某些 Python 模块的源码,
+你会发现一般都会有一个名为<strong>setup.py</strong>的文件,那么这个文件是干啥的呢?</p>
+</blockquote>
+<h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><ul>
+<li>最近,正在构思自己的命令行脚手架工具 <strong><code>dragon-cli</code></strong> 时遇到了这个问题,在学习使用 <a href="https://click.palletsprojects.com/en/7.x/" target="_blank" rel="noopener">click</a> 模块(一个好用方便的建立命令行工具的框架) 的<a href="https://www.youtube.com/watch?v=kNke39OZ2k0" target="_blank" rel="noopener">教程</a>中有一个配置<strong>setup.py</strong>的过程,我才发现一直对这个玩意熟视无睹,并且不明所以,在探索使用的过程,总结此文,方便以后查阅 O(∩_∩)O~</li>
+</ul>
+<a id="more"></a>
+<h1 id="初步了解"><a href="#初步了解" class="headerlink" title="初步了解"></a>初步了解</h1><ul>
+<li><p>简单来说,这个 <strong>setup.py</strong> 是用来帮助使用者安装 模块(Module)/包(Package) 的构建脚本.就像<code>pip</code>, <code>easy_install</code>, … 做的那样 (!它们也是遵循着目标库中的 <strong>setup.py</strong> 而完成的安装).</p>
+</li>
+<li><p>在每个<strong>setup.py</strong>文件中,都可以看到其导入了 setuptools 这个包,并且从入口函数 <code>setup(...)</code> 传入配置参数, 看上去像这样:</p>
+</li>
+</ul>
+<pre><code class="python">from setuptools import setup
+
+setup(
+    # 包名称
+    name=&#39;foo&#39;,
+    # 包版本
+    version=&#39;1.0&#39;,
+    # 需要打包的 Python 单文件列表
+    py_modules=[&#39;foo&#39;],
+    # 安装时需要安装的依赖包
+    install_requires=[
+        &#39;bar&#39;,
+    ],
+    # ...
+)
+</code></pre>
+<ul>
+<li>通常可以在包源码根目录使用以下命令安装 (<strong>注意 Python 的版本,推荐虚拟环境安装</strong>)</li>
+</ul>
+<pre><code class="bash">python setup.py install
+</code></pre>
+<ul>
+<li><p>这样,对于库的用户来讲,并不太需要关注这个脚本干了些什么,如果没有安装失败,一切就安好.</p>
+<ul>
+<li>其实它是把该库安装到目标环境(包括虚拟环境)的 <strong>site-packages/</strong> 目录下.</li>
+</ul>
+</li>
+<li><p>不过,当我们从库用户转变为库作者,或者两者兼有时,那么明白其中的原理就成为解决问题的重要出路了.</p>
+</li>
+</ul>
+<h1 id="setup-接受参数"><a href="#setup-接受参数" class="headerlink" title="setup 接受参数"></a>setup 接受参数</h1><blockquote>
+<p>Some values are treated as simple strings, some allow more logic.</p>
+<p>Type names used below:</p>
+<ul>
+<li><code>str</code> - simple string</li>
+<li><code>list-comma</code> - dangling list or string of comma-separated values</li>
+<li><code>list-semi</code> - dangling list or string of semicolon-separated values</li>
+<li><code>bool</code> - <code>True</code> is 1, yes, true</li>
+<li><code>dict</code> - list-comma where keys are separated from values by <code>=</code></li>
+<li><code>section</code> - values are read from a dedicated (sub)section</li>
+</ul>
+<p>Special directives:</p>
+<ul>
+<li><code>attr:</code> - Value is read from a module attribute. <code>attr:</code> supports callables and iterables; unsupported types are cast using <code>str()</code>.</li>
+<li><code>file:</code> - Value is read from a list of files and then concatenated</li>
+</ul>
+</blockquote>
+<ul>
+<li>元信息 (MetaData)</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">说明</th>
+<th style="text-align:center">指定参数</th>
+<th style="text-align:center">指定参数(别名)</th>
+<th style="text-align:center">接收类型</th>
+<th style="text-align:center">最低版本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">包名称</td>
+<td style="text-align:center">name</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">str</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">包版本</td>
+<td style="text-align:center">version</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">attr:, file:, str</td>
+<td style="text-align:center">39.2.0</td>
+</tr>
+<tr>
+<td style="text-align:center">包官网主页</td>
+<td style="text-align:center">url</td>
+<td style="text-align:center">home-page</td>
+<td style="text-align:center">str</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">download_url</td>
+<td style="text-align:center">download-url</td>
+<td style="text-align:center">str</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">项目主页</td>
+<td style="text-align:center">project_urls</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">dict</td>
+<td style="text-align:center">38.3.0</td>
+</tr>
+<tr>
+<td style="text-align:center">作者</td>
+<td style="text-align:center">author</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">str</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">作者的邮箱地址</td>
+<td style="text-align:center">author_email</td>
+<td style="text-align:center">author-email</td>
+<td style="text-align:center">str</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">维护者</td>
+<td style="text-align:center">maintainer</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">str</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">维护者的邮箱地址</td>
+<td style="text-align:center">maintainer_email</td>
+<td style="text-align:center">maintainer-email</td>
+<td style="text-align:center">str</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">所属分类列表</td>
+<td style="text-align:center">classifiers</td>
+<td style="text-align:center">classifier</td>
+<td style="text-align:center">file:, list-comma</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">授权信息</td>
+<td style="text-align:center">license</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">str</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">license_file</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">str</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">简单描述</td>
+<td style="text-align:center">description</td>
+<td style="text-align:center">summary</td>
+<td style="text-align:center">file:, str</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">详细描述</td>
+<td style="text-align:center">long_description</td>
+<td style="text-align:center">long-description</td>
+<td style="text-align:center">file:, str</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">long_description_content_type</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">str</td>
+<td style="text-align:center">38.6.0</td>
+</tr>
+<tr>
+<td style="text-align:center">关键字列表</td>
+<td style="text-align:center">keywords</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">list-comma</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">适用的软件平台列表</td>
+<td style="text-align:center">platforms</td>
+<td style="text-align:center">platform</td>
+<td style="text-align:center">list-comma</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">指定可以为哪些模块提供依赖</td>
+<td style="text-align:center">provides</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">list-comma</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">指定依赖的其他包</td>
+<td style="text-align:center">requires</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">list-comma</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">obsoletes</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">list-comma</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>选项(Option)</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">说明</th>
+<th style="text-align:center">指定参数</th>
+<th style="text-align:center">接收类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">不压缩包，而是以目录的形式安装</td>
+<td style="text-align:center">zip_safe</td>
+<td style="text-align:center">bool</td>
+</tr>
+<tr>
+<td style="text-align:center">指定运行 setup.py 文件本身所依赖的包</td>
+<td style="text-align:center">setup_requires</td>
+<td style="text-align:center">list-semi</td>
+</tr>
+<tr>
+<td style="text-align:center">安装时需要安装的依赖包</td>
+<td style="text-align:center">install_requires</td>
+<td style="text-align:center">list-semi</td>
+</tr>
+<tr>
+<td style="text-align:center">当前包的高级/额外特性需要依赖的分发包</td>
+<td style="text-align:center">extras_require</td>
+<td style="text-align:center">section</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">python_requires</td>
+<td style="text-align:center">str</td>
+</tr>
+<tr>
+<td style="text-align:center">动态发现服务和插件 ==TODO==</td>
+<td style="text-align:center">entry_points</td>
+<td style="text-align:center">file:, section</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">use_2to3</td>
+<td style="text-align:center">bool</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">use_2to3_fixers</td>
+<td style="text-align:center">list-comma</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">use_2to3_exclude_fixers</td>
+<td style="text-align:center">list-comma</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">convert_2to3_doctests</td>
+<td style="text-align:center">list-comma</td>
+</tr>
+<tr>
+<td style="text-align:center">指定可执行脚本,安装时脚本会被安装到系统 PATH 路径下</td>
+<td style="text-align:center">scripts</td>
+<td style="text-align:center">list-comma</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">eager_resources</td>
+<td style="text-align:center">list-comma</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">dependency_links</td>
+<td style="text-align:center">list-comma</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">tests_require</td>
+<td style="text-align:center">list-semi</td>
+</tr>
+<tr>
+<td style="text-align:center">自动包含包内所有受版本控制(cvs/svn/git)的数据文件</td>
+<td style="text-align:center">include_package_data</td>
+<td style="text-align:center">bool</td>
+</tr>
+<tr>
+<td style="text-align:center">需要处理的包目录(通常为包含  <code>__init__.py</code>  的文件夹)</td>
+<td style="text-align:center">packages</td>
+<td style="text-align:center">find:, find_namespace:, list-comma</td>
+</tr>
+<tr>
+<td style="text-align:center">指定哪些目录下的文件被映射到哪个源码包</td>
+<td style="text-align:center">package_dir</td>
+<td style="text-align:center">dict</td>
+</tr>
+<tr>
+<td style="text-align:center">指定包内需要包含的数据文件</td>
+<td style="text-align:center">package_data</td>
+<td style="text-align:center">section</td>
+</tr>
+<tr>
+<td style="text-align:center">当 include_package_data 为 True 时该选项用于排除部分文件</td>
+<td style="text-align:center">exclude_package_data</td>
+<td style="text-align:center">section</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">namespace_packages</td>
+<td style="text-align:center">list-comma</td>
+</tr>
+<tr>
+<td style="text-align:center">需要打包的 Python 单文件列表</td>
+<td style="text-align:center">py_modules</td>
+<td style="text-align:center">list-comma</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">data_files</td>
+<td style="text-align:center">dict</td>
+</tr>
+</tbody>
+</table>
+<h1 id="常用功能"><a href="#常用功能" class="headerlink" title="常用功能"></a>常用功能</h1><ul>
+<li>当使用 <code>python setup.py --help-commands</code> 时, 可以看到不少指令(在这里列举几个常用的指令)<ul>
+<li>此外可以使用 <code>python setup.py &lt;COMMAND&gt; --help</code> 获取详细帮助</li>
+</ul>
+</li>
+</ul>
+<h2 id="针对库用户"><a href="#针对库用户" class="headerlink" title="针对库用户:"></a>针对库用户:</h2><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>命令描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>python setup.py build</code></td>
+<td>构建该项目所需文件并将生成物放在 <strong>build/</strong> 中</td>
+</tr>
+<tr>
+<td><code>python setup.py install</code></td>
+<td>从 <strong>build/</strong> 中将所需文件安装到目标环境(虚拟环境)的 <strong>site-packages/</strong> 中</td>
+</tr>
+<tr>
+<td><code>python setup.py clean</code></td>
+<td>清理从 build 命令下生成的临时文件</td>
+</tr>
+</tbody>
+</table>
+<h2 id="针对库开发者"><a href="#针对库开发者" class="headerlink" title="针对库开发者"></a>针对库开发者</h2><h3 id="包的上传-发布相关命令"><a href="#包的上传-发布相关命令" class="headerlink" title="包的上传,发布相关命令"></a>包的上传,发布相关命令</h3><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>命令描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>python setup.py register</code></td>
+<td>!注册该项目(不推荐:http 未加密):<a href="https://segmentfault.com/a/1190000008663126#articleHeader6" target="_blank" rel="noopener">参考</a></td>
+</tr>
+<tr>
+<td><code>python setup.py upload</code></td>
+<td>上传二进制文件到 PyPI</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>进阶: <a href="https://segmentfault.com/a/1190000008663126" target="_blank" rel="noopener">发布你自己的轮子 - PyPI 打包上传实践</a></p>
+</blockquote>
+<pre><code class="python">from setuptools import setup
+
+setup(
+    name=&#39;dragon&#39;,
+    version=&#39;0.0.1&#39;,
+    py_modules=[&#39;dragon&#39;],
+    include_package_data=True,
+    install_requires=[
+        &#39;click&#39;,
+        &#39;colorama&#39;,
+    ],
+    license=&#39;MIT&#39;,
+    entry_points=&#39;&#39;&#39;
+        [console_scripts]
+        dragon=dragon:cli
+    &#39;&#39;&#39;,
+    classifiers=[
+        # Trove classifiers
+        # Full list: https://pypi.python.org/pypi?%3Aaction=list_classifiers
+        &#39;Programming Language :: Python :: 3.7&#39;,
+    ],
+)
+
+</code></pre>
+<h1 id="学习资源"><a href="#学习资源" class="headerlink" title="学习资源"></a>学习资源</h1><table>
+<thead>
+<tr>
+<th></th>
+<th>介绍</th>
+<th>链接</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>参考模板</td>
+<td><strong><code>requests</code></strong> 库作者,写给人类的 setup.py 指南 ;)</td>
+<td><a href="https://github.com/kennethreitz/setup.py" target="_blank" rel="noopener">kennethreitz/setup.py</a></td>
+</tr>
+<tr>
+<td>详细教程(En)</td>
+<td>有关打包,分发 Python 包的相关教程</td>
+<td><a href="https://the-hitchhikers-guide-to-packaging.readthedocs.io/en/latest/creation.html" target="_blank" rel="noopener">The Hitchhiker’s Guide to Packaging</a></td>
+</tr>
+</tbody>
+</table>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li><a href="https://stackoverflow.com/questions/1471994/what-is-setup-py" target="_blank" rel="noopener">https://stackoverflow.com/questions/1471994/what-is-setup-py</a></li>
+<li><a href="http://blog.konghy.cn/2018/04/29/setup-dot-py/" target="_blank" rel="noopener">http://blog.konghy.cn/2018/04/29/setup-dot-py/</a></li>
+<li><a href="https://setuptools.readthedocs.io/en/latest/setuptools.html" target="_blank" rel="noopener">https://setuptools.readthedocs.io/en/latest/setuptools.html</a></li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <p>
+                
+                  <span>
+                <i class="iconfont icon-inbox"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/配置文件/">配置文件</a>
+                      &nbsp;
+                    
+                  </span>&nbsp;&nbsp;
+                
+                
+                  <span>
+                <i class="iconfont icon-tag"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Python3/">Python3</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Python3-pip/">Python3::pip</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Python3-PyPI/">Python3::PyPI</a>
+                    
+                  </span>
+                
+              </p>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/12/09/what-is-a-good-tech-blog/">
+                        <i class="fa fa-chevron-left"></i>
+                        <span class="hidden-mobile">优秀的技术博客应该是怎样的?</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2019/01/02/my-awesome-books/">
+                        <span class="hidden-mobile">阅读清单</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="fa fa-chevron-right"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+              
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc-start"></div>
+<div id="toc">
+  <p class="h5"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+    <div class="col-lg-7 mx-auto nopadding-md">
+      <div class="container custom mx-auto">
+        <style>.markdown-body p{ text-indent:2em; }</style>
+      </div>
+    </div>
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.staticfile.org/mdbootstrap/4.13.0/js/mdb.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.10.0/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var navHeight = $('#navbar').height();
+      var toc = $('#toc');
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+      var tocLimMax = 2 * boardTop + boardCtn.height();
+
+      $(window).scroll(function () {
+        var tocLimMin = $('#toc-start').offset().top - navHeight;
+        var scroH = document.body.scrollTop + document.documentElement.scrollTop;
+
+        if (tocLimMin <= scroH && scroH <= tocLimMax) {
+          toc.css({
+            'display': 'block',
+            'position': 'fixed',
+            'top': navHeight,
+          });
+        } else if (scroH <= tocLimMin) {
+          toc.css({
+            'position': '',
+            'top': '',
+          });
+        } else if (scroH > tocLimMax) {
+          toc.css('display', 'none');
+        }
+      });
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc > p').css('visibility', 'visible');
+      }
+      var offset = boardCtn.css('margin-right')
+      $('#toc-ctn').css({
+        'right': offset
+      })
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+
+<!-- Plugins -->
+
+
+
+  <script  src="https://cdn.staticfile.org/prettify/188.0.0/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        ""这个 setup.py 是什么?"&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

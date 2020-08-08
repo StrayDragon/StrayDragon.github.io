@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="做一个勤奋快乐的Coder ;)">
+  <meta name="author" content="StrayDragon">
+  <meta name="keywords" content>
+  <title>开发日记: 时间管理应用 - StrayDragon的小窝</title>
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/mdbootstrap/4.13.0/css/mdb.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+  <link rel="stylesheet" href="/lib/prettify/github-v2.min.css">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+  <link defer rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css">
+
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<link rel="alternate" href="/atom.xml" title="StrayDragon的小窝" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>StrayDragon的小窝</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">归档</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">分类</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">标签</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">关于</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/links/">友链</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <p class="mt-3 post-meta">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                  星期四, 一月 2日 2020, 8:12 早上
+                </p>
+              
+
+              <p class="mt-1">
+                
+                  
+                  <span class="post-meta">
+                    <i class="far fa-chart-bar"></i>
+                    3.7k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta">
+                      <i class="far fa-clock"></i>
+                      13 分钟
+                  </span>
+                
+
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5 z-depth-3" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <div class="markdown-body">
+              <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><blockquote>
+<p>开新坑咯…</p>
+<p>我想通过开发日记的形式记录过程中的想(wa)法(keng)与吐(bei)槽(nüè), 由以往的经验来看,要想快速理解一个项目, 除了开发者关心的版本控制记录之外(如:commit logs / issues 等), 及时的文档与从零开始的介绍也是非常重要的,故诞生此文,希望我能坚持下去~</p>
+<p><strong>PS:</strong></p>
+<ul>
+<li>我不太喜欢把系列文章分成那么多篇,所以暂时都写在这, 以<code>0x</code>序号为主顺序.</li>
+<li>笔者初次写作, 若有任何不通或小错误, 任何建议与批评都是欢迎的, 祝你阅读愉快~</li>
+</ul>
+</blockquote>
+<h1 id="0x00-开篇准备与碎碎念"><a href="#0x00-开篇准备与碎碎念" class="headerlink" title="0x00 开篇准备与碎碎念"></a>0x00 开篇准备与碎碎念</h1><a id="more"></a>
+<h2 id="动机-契机"><a href="#动机-契机" class="headerlink" title="动机/契机"></a>动机/契机</h2><p>由于<code>Flutter</code>其非常优秀的原生渲染以及跨平台的能力十分诱人,也充分满足我的平台需求,虽然有不少的坑,也写过一些demo体验过,但还是值得一试的;其次我想构建一个完整的软件, 除了这几个前端还要包含后端的部分的,而<a href="https://en.wikipedia.org/wiki/Microservices" target="_blank" rel="noopener">微服务(Microservices)</a> 一词经常出现在我阅读的技术文章中,因此感到很好奇,在阅读相关解释后发现虽然并不是很适合我准备制作的App的需求(有点太小题大作了,当然,如果可以维护到那个规模,试一试也未尝不可),而其”原型”面向服务架构 (<a href="https://en.wikipedia.org/wiki/Service-oriented_architecture" target="_blank" rel="noopener">Service-oriented architecture, SOA</a>) ,更为适合我想要打造出来的那个系统符合的架构名字,标题也因此而来.</p>
+<p>希望这个应用的服务可以体现出组件的高复用性, 并易于重构, 并提供其他多个后端网络服务扩展如: 云备份, 搜索, 记录分析等</p>
+<blockquote>
+<p>以下指导原则是开发，维护和使用SOA的基本原则[3]：</p>
+<ul>
+<li>可重复使用、粒度、模块性、可组合型、对象化原件、构件化以及具交互操作性</li>
+<li>符合开放标准（通用的或行业的）</li>
+<li>服务的识别和分类，提供和发布，监控和跟踪。</li>
+</ul>
+<p>摘自: <a href="https://en.wikipedia.org/wiki/Service-oriented_architecture" target="_blank" rel="noopener">维基百科 SOA的主要三原则</a>:</p>
+</blockquote>
+<p>以上原则(或者叫特性),加强了这一做法的可行性,正所谓”面向需求编程”, 而不是”面向高端大气上档次的技术名词编程”(虽然这个标题还是有点…),
+所以我决定尝试在这一过程中更多地验证所学并克服更多技术问题,深入浅出,以项目驱动学习,实践这些应用技能,适当时候也会反模式让其更适应需求.</p>
+<p>想开发这个App的想法来自于我体验过的许多应用,如Android上的 <code>Microsoft Todo</code>, <code>番茄Todo</code> , iOS上的 <code>时间块</code>等时间管理类应用,它们很好很成熟,制作精良. 但还是感觉用的不是很顺手,似乎各有优点,但又没有办法可以很好的扩展, 比如:</p>
+<ul>
+<li><code>MS Todo</code> 中的 “我的一天” 会给你根据过去添加记录的建议,以快速完成这个动作,而另一些软件却没有这个很实用的功能;</li>
+<li><code>番茄Todo</code> 可以再添加事项后提供可选的计时,倒计时功能(虽然很繁琐), 而 <code>MS Todo</code> 却没有(也许这不是这该应用的产品功能吧,但我真的需要这个功能,甚至发了Feature Request…)</li>
+<li><code>时间块</code> 有非常直观可视的区块添加事件,是对<code>日历</code>一类应用的加强,但却无法计时.</li>
+<li>…
+以上这些,如果可以更好的衔接,舒服地UX体验,流畅的UI,那该有多好!</li>
+</ul>
+<p>除此之外,学习时间管理等自我管理的方法, 养成高效规划与执行的习惯, 才是我的最终目的,而这个辅助工具的功能开发的会首先考虑自己的需求(这也是一强大动力哈), 但我会将其开源,尽可能提供较少开销的<strong>扩展机制</strong>,放到这里<a href="https://github.com/StrayDragon/Daily" target="_blank" rel="noopener">StrayDragon/Daily</a>.</p>
+<h2 id="功能计划-待补充"><a href="#功能计划-待补充" class="headerlink" title="功能计划 [待补充]"></a>功能计划 [待补充]</h2><p><strong>注意</strong>: 详细的文档说明,将会更新在Github项目主页上(或许是issues) <a href="https://github.com/StrayDragon/Daily" target="_blank" rel="noopener">StrayDragon/Daily</a></p>
+<h2 id="前端"><a href="#前端" class="headerlink" title="前端"></a>前端</h2><blockquote>
+<p>这里有一些过去的功能需求文档: <a href="https://github.com/StrayDragon/Daily/blob/master/doc/ProjectDescription.md" target="_blank" rel="noopener">StrayDragon/Daily/doc/ProjectDescription</a></p>
+</blockquote>
+<p>除此之外:</p>
+<ul>
+<li><p>克隆一下以上提到的那些应用的需求</p>
+<ul>
+<li>任务/事项的推荐</li>
+<li>时间管理模块(如计时…)</li>
+<li>[扩展] 数据分析模块(如习惯分析…)</li>
+<li>[扩展] 搜素模块</li>
+<li>[扩展] 信息持久化模块(如云备份…)</li>
+</ul>
+</li>
+<li><p>至少 Linux/Web 与 Android 的UI布局需要有所更改</p>
+</li>
+</ul>
+<h2 id="后端"><a href="#后端" class="headerlink" title="后端"></a>后端</h2><ul>
+<li>针对以上 [扩展] 模块进行API的开发</li>
+</ul>
+<h2 id="技术选型"><a href="#技术选型" class="headerlink" title="技术选型"></a>技术选型</h2><p>如以下表格所示:</p>
+<table>
+<thead>
+<tr>
+<th>职责</th>
+<th>主要语言</th>
+<th>生态</th>
+<th>(备选)</th>
+<th>用于构建</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>后端</td>
+<td>Python</td>
+<td>Django</td>
+<td>Flask</td>
+<td>API Server</td>
+</tr>
+<tr>
+<td>前端</td>
+<td>Dart</td>
+<td>Flutter</td>
+<td>React Native, Vue混合开发</td>
+<td>Linux, Android, Web平台的前端应用</td>
+</tr>
+</tbody>
+</table>
+<p>简单来说(以编程语言导向):</p>
+<ul>
+<li>Flutter 负责 所有的用户端(大前端): Linux, Android, Web (暂时只针对这三个平台优先开发, 其他平台由于多方原因(Win不常用,iOS没Mac…),视情况而定)</li>
+<li><p>Python的Web后端生态 负责 API Server的开发 实现前后端分离</p>
+</li>
+<li><p>数据库将会从以下选择中: 使用SQL数据库(SQLite, MySQL/MariaDB, PostgreSQL)与NoSQL数据库(Redis, MongoDB), 挑选适合的数据库完成衔接后端服务模块</p>
+</li>
+<li>其他<ul>
+<li>会有真正”服务器”去启动Web端, 如Nginx, Gunicorn…</li>
+</ul>
+</li>
+</ul>
+<h2 id="可能学到什么-待补充"><a href="#可能学到什么-待补充" class="headerlink" title="可能学到什么 [待补充]"></a>可能学到什么 [待补充]</h2><ul>
+<li><p>使用多种应用技术构建整体系统服务的一次项目实践</p>
+</li>
+<li><p>Web后端应用的相关知识与数据库应用知识</p>
+</li>
+<li><p>掌握Flutter应用开发的一些小技巧和基本组件,并享受不断学习,重构完善的过程</p>
+</li>
+<li><p>Git与Github:</p>
+<ul>
+<li>更规范的Git commit messages / log / tag 管理</li>
+<li>更熟练地使用Git常用命令</li>
+<li>学会掌握Github Flow 的开发流程.</li>
+<li>严格的Review与PR模拟</li>
+</ul>
+</li>
+<li><p>测试与持续集成</p>
+<ul>
+<li>更强的更为规范的单元/集成测试,覆盖率检查与代码质量检查以及对APIServer的压力测试</li>
+<li>与Circle CI等在线持续集成系统结合,完善测试自动化过程</li>
+</ul>
+</li>
+</ul>
+<h2 id="参考资料-待补充"><a href="#参考资料-待补充" class="headerlink" title="参考资料 [待补充]"></a>参考资料 [待补充]</h2><h4 id="通用工具"><a href="#通用工具" class="headerlink" title="通用工具"></a>通用工具</h4><h4 id="前端-1"><a href="#前端-1" class="headerlink" title="前端"></a>前端</h4><h5 id="PC-amp-Mobile"><a href="#PC-amp-Mobile" class="headerlink" title="PC &amp; Mobile"></a>PC &amp; Mobile</h5><ul>
+<li><a href="https://flutter.dev/docs" target="_blank" rel="noopener">Flutter 官方文档</a></li>
+<li>《Flutter技术入门与实战》</li>
+</ul>
+<h6 id="数据持久"><a href="#数据持久" class="headerlink" title="数据持久"></a>数据持久</h6><blockquote>
+<p><a href="https://github.com/tekartik/sqflite" target="_blank" rel="noopener">https://github.com/tekartik/sqflite</a> | tekartik/sqflite: SQLite flutter plugin
+<a href="https://github.com/tekartik" target="_blank" rel="noopener">https://github.com/tekartik</a> | Tekartik
+<a href="https://medium.com/flutter/flutters-ios-application-bundle-6f56d4e88cf8" target="_blank" rel="noopener">https://medium.com/flutter/flutters-ios-application-bundle-6f56d4e88cf8</a> | Flutter’s iOS Application Bundle - Flutter - Medium
+<a href="https://github.com/Jaguar-dart/jaguar_orm/issues" target="_blank" rel="noopener">https://github.com/Jaguar-dart/jaguar_orm/issues</a> | Issues · Jaguar-dart/jaguar_orm
+<a href="https://juejin.im/post/5c45c72d6fb9a049d81c2b4c" target="_blank" rel="noopener">https://juejin.im/post/5c45c72d6fb9a049d81c2b4c</a> | 手把手教你在Flutter项目优雅的使用ORM数据库 - 掘金</p>
+</blockquote>
+<h5 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h5><blockquote>
+<p><a href="https://github.com/vuetifyjs/vuetify" target="_blank" rel="noopener">vuetifyjs/vuetify: 🐉 Material Component Framework for Vue</a>
+<a href="https://github.com/ElemeFE/element" target="_blank" rel="noopener">ElemeFE/element: A Vue.js 2.0 UI Toolkit for Web</a>
+<a href="https://github.com/vuematerial/vue-material" target="_blank" rel="noopener">vuematerial/vue-material: Material design for Vue.js</a>
+<a href="https://github.com/airyland/vux" target="_blank" rel="noopener">airyland/vux: Mobile UI Components based on Vue &amp; WeUI</a>
+<a href="https://github.com/Semantic-UI-Vue/Semantic-UI-Vue" target="_blank" rel="noopener">Semantic-UI-Vue/Semantic-UI-Vue: Semantic UI integration for Vue</a></p>
+</blockquote>
+<h4 id="后端-1"><a href="#后端-1" class="headerlink" title="后端"></a>后端</h4><blockquote>
+<p><a href="https://github.com/tiangolo/fastapi" target="_blank" rel="noopener">tiangolo/fastapi: FastAPI framework, high performance, easy to learn, fast to code, ready for production</a>
+<a href="https://docs.djangoproject.com/en/3.0/intro/tutorial01/" target="_blank" rel="noopener">Django 官方文档</a>
+<a href="https://flask.palletsprojects.com/" target="_blank" rel="noopener">Flask 官方文档</a></p>
+</blockquote>
+<h5 id="数据持久-1"><a href="#数据持久-1" class="headerlink" title="数据持久"></a>数据持久</h5><blockquote>
+<p><a href="https://github.com/dahlia/awesome-sqlalchemy" target="_blank" rel="noopener">dahlia/awesome-sqlalchemy: A curated list of awesome tools for SQLAlchemy</a>
+<a href="https://github.com/ponyorm/pony/" target="_blank" rel="noopener">ponyorm/pony: Pony Object Relational Mapper</a></p>
+</blockquote>
+<h5 id="依赖管理"><a href="#依赖管理" class="headerlink" title="依赖管理"></a>依赖管理</h5><h5 id="维护工具"><a href="#维护工具" class="headerlink" title="维护工具"></a>维护工具</h5><h6 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h6><blockquote>
+<p><a href="https://github.com/ansible/ansible?hmsr=pycourses.com&amp;utm_source=pycourses.com&amp;utm_medium=pycourses.com" target="_blank" rel="noopener">ansible/ansible: Ansible is a radically simple IT automation platform that makes your applications and systems easier to deploy. </a></p>
+<ul>
+<li>Avoid writing scripts or custom code to deploy and update your applications — automate in a language that approaches plain English, using SSH, with no agents to install on remote systems. <a href="https://docs.ansible.com/ansible/" target="_blank" rel="noopener">https://docs.ansible.com/ansible/</a></li>
+</ul>
+</blockquote>
+<h5 id="面向服务体系架构与微服务"><a href="#面向服务体系架构与微服务" class="headerlink" title="面向服务体系架构与微服务"></a>面向服务体系架构与微服务</h5><blockquote>
+<p><a href="https://www.redhat.com/zh/topics/microservices/what-are-microservices" target="_blank" rel="noopener">https://www.redhat.com/zh/topics/microservices/what-are-microservices</a> | 什么是微服务？
+<a href="https://en.wikipedia.org/wiki/Microservices" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Microservices</a> | Microservices - Wikipedia
+<a href="https://zh.wikipedia.org/zh-cn/%E9%9D%A2%E5%90%91%E6%9C%8D%E5%8A%A1%E7%9A%84%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84" target="_blank" rel="noopener">https://zh.wikipedia.org/zh-cn/%E9%9D%A2%E5%90%91%E6%9C%8D%E5%8A%A1%E7%9A%84%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84</a> | 面向服务的体系结构 - 维基百科，自由的百科全书
+<a href="https://www.zhihu.com/question/65502802" target="_blank" rel="noopener">https://www.zhihu.com/question/65502802</a> | 什么是微服务架构？ - 知乎</p>
+</blockquote>
+<p>######</p>
+<h4 id="工具链相关"><a href="#工具链相关" class="headerlink" title="工具链相关"></a>工具链相关</h4><ul>
+<li>《Pro Git》</li>
+<li>《Github入门与实践》</li>
+</ul>
+<h4 id="测试相关"><a href="#测试相关" class="headerlink" title="测试相关"></a>测试相关</h4><ul>
+<li>《Google软件测试之道》</li>
+<li>《C++ 程序设计实践与技巧 测试驱动开发》</li>
+</ul>
+<h1 id="0x01-目标-需求分析与应用技术生态调研"><a href="#0x01-目标-需求分析与应用技术生态调研" class="headerlink" title="0x01 目标,需求分析与应用技术生态调研"></a>0x01 目标,需求分析与应用技术生态调研</h1><h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h2><blockquote>
+<p>从不同的视角思考, 经常会获得更多的收获. 我将目前的所有认知与思考总结分类于此</p>
+</blockquote>
+<h3 id="产品目标"><a href="#产品目标" class="headerlink" title="产品目标"></a>产品目标</h3><h3 id="技术目标"><a href="#技术目标" class="headerlink" title="技术目标"></a>技术目标</h3><blockquote>
+<p>这个章节将表达我期望使用的应用技术, 熟练程度.</p>
+</blockquote>
+<ul>
+<li>RESTful API, GraphQL</li>
+<li>权限验证: JWT, Auth2</li>
+<li>应用 <code>docker</code> 及相关生态</li>
+</ul>
+<h1 id="版本目标与需求和功能分析"><a href="#版本目标与需求和功能分析" class="headerlink" title="版本目标与需求和功能分析"></a>版本目标与需求和功能分析</h1><p>鉴于需求往往会改变, 而落实完成功能往往会体现在大大小小的版本号上, 所以我将会及时更新目标,功能与需求说明, 最终体现在语义化版本号内容更新中</p>
+<p>(注意: 这里确定的版本号与说明文只是文档版本(如 <code>v0.0.0-Luna</code>), 请以各个项目中实际版本的变动信息查询)</p>
+<h2 id="整体定位"><a href="#整体定位" class="headerlink" title="整体定位"></a>整体定位</h2><p>包含待办事项, 番茄法计时, 象限分类, 优先级, 计划推荐(关键路径等算法), 自动化, 优势分析 等功能的时间管理应用</p>
+<h2 id="v0-0-0-Luna"><a href="#v0-0-0-Luna" class="headerlink" title="v0.0.0-Luna"></a>v0.0.0-Luna</h2><p>基于市面常见<code>TODO</code>应用, 完成待办事项基本功能, 实现基本应用框架, 并尝试完成各个平台部署.</p>
+<p><strong>注意</strong>: 此版本需要细心设计, 为未来功能开发作出合适的扩展设计</p>
+<h3 id="前端-2"><a href="#前端-2" class="headerlink" title="前端"></a>前端</h3><p>整体描述:</p>
+<ul>
+<li>减少或弃用 Dart(Flutter) 投入, 转而使用 JS/TS, HTML, Stylus 等大前端相关技术栈<ul>
+<li>虽然使用 Flutter 开发过两三个 App(两个课设,一个实验项目), 但还是不太喜欢 Dart 在 Flutter 上的表现, 由于被禁了反射, 太多事情需要做的非常繁琐了, 比如它的 JSON 序列化, ORM 等, 虽然有 <code>codegen</code> 这个大杀器, 但有时候代码膨胀的厉害, 十分难受, 写起来总感觉有坏味道; 嵌套的多个部件拆分, 多种状态管理还是有点繁琐,当然也有更好的<code>inspector</code>工具了, 总而言之就是我太菜, 且不是很喜欢 Dart 提供的语法罢了(当然这不是主要原因)…</li>
+<li>反过来看回所谓大前端圈(主要是 TS 或 ES6 以后的 JS)的生态和方案, 学习成本降低了不少, 主要是我的需求可能不是最性能敏感的, 使用前端技术栈足以应对了. (另外确实想学习一下 TS 了 23333, 毕竟受到 <code>coc.nvim</code> 这个极其优秀的插件受到了极大的鼓舞, 也想写一些插件玩玩了, p.s.好像不是一个领域的东西 233333)</li>
+</ul>
+</li>
+<li>深入学习并应用跨端生成对应代码的技术, 争取最小化代价获得更多的代码复用</li>
+</ul>
+<h4 id="PC-Linux"><a href="#PC-Linux" class="headerlink" title="PC(Linux)"></a>PC(Linux)</h4><blockquote>
+<p><strong>变更(主框架)</strong></p>
+<p><strong>弃用</strong>: <code>Flutter Desktop</code> , 原因:</p>
+<ul>
+<li>不太稳定, 未进入主线支持;</li>
+<li>需重度使用的插件不支持(如 <a href="https://pub.flutter-io.cn/packages/sqflite" target="_blank" rel="noopener">sqflite</a> )</li>
+</ul>
+<p><strong>选用</strong>: <code>Electron</code>, 原因:</p>
+<ul>
+<li>生态繁荣, 相关插件支持良好</li>
+<li>性能够用</li>
+<li>配合已有技术栈方便</li>
+</ul>
+</blockquote>
+<p>由<a href="TODO">技术调研</a>中得出的表现, 与实际需求对比, 最终还是还是放弃了 <code>FlutterDesktop</code>, 代价可能是丢掉了原生级别的高性能的用户体验, 但带来不小的开发效率的提升</p>
+<h5 id="Databases"><a href="#Databases" class="headerlink" title="Databases"></a>Databases</h5><p>如果需要缓存一些数据的话, 关系型貌似长久持久化支持完善的只有 <code>SQLite</code>, 短期可以存一存文档数据库, 不过需要进一步调研 …</p>
+<h4 id="Web-1"><a href="#Web-1" class="headerlink" title="Web"></a>Web</h4><blockquote>
+<p><strong>变更简要(主框架):</strong></p>
+<p><strong>弃用</strong>: <code>Flutter Web</code> , 原因:</p>
+<ul>
+<li>需重度使用的插件不支持, 如 <a href="https://pub.flutter-io.cn/packages/sqflite" target="_blank" rel="noopener">sqflite</a></li>
+<li>包体积太大, 且有性能有点问题, 见 <a href="https://www.zhihu.com/question/323439136/answer/850516697" target="_blank" rel="noopener">如何评价 Flutter for Web？ - 闲鱼技术的回答 - 知乎</a>;</li>
+<li>一些部件(Widget)有渲染问题</li>
+</ul>
+<p><strong>选用</strong>: <code>Vuetify</code>, 原因:</p>
+<ul>
+<li>生态繁荣, 相关插件支持良好</li>
+<li>性能够用</li>
+<li><code>Material Design</code> 支持完善</li>
+</ul>
+</blockquote>
+<h4 id="CLI-nix"><a href="#CLI-nix" class="headerlink" title="CLI(*nix)"></a>CLI(*nix)</h4><blockquote>
+<p><strong>等待调研</strong></p>
+</blockquote>
+<p>方便更喜欢<strong>Keyboard Only</strong>的选手使用, 比如俺 QAQ</p>
+<h4 id="Mobile-Android"><a href="#Mobile-Android" class="headerlink" title="Mobile(Android)"></a>Mobile(Android)</h4><blockquote>
+<p><strong>暂时停止开发</strong></p>
+</blockquote>
+<p>不过, 目前仍未找到合适的替代, <code>Flutter</code>仍是我看得到的所有技术中除原生外最好的选择(视时间待定)</p>
+<h3 id="后端-2"><a href="#后端-2" class="headerlink" title="后端"></a>后端</h3><p>终于选中了合适的框架(<code>FastAPI</code>), 看上去非常好, 读了两天文档的直接感受就是作者很贴心和照顾新人, 社区活跃, 底层还算结实. 有完整的鉴权集成(OAuth2/1 with JWT, Basic HTTP Auth…), OpenAPI Schema 与 Swagger 文档生成, 真的吹爆(虽然可能 Swagger 早就出现过了, 可我第一次听说哈哈, 想想实习时和后端扯 API 规范扯来扯去, 当时咋就没遇到这个呢, 有了它就可以, 别 BB,文档 Sever 一直开着, 要啥返回啥自己看, 降低了沟通损耗, 真是赛高~), 与 ASGI 的结合和兼容同步写法的代码, GraphQL 等等一些我还没怎么接触过的东西, 项目驱动学习的感觉不错.</p>
+<h4 id="API-Server"><a href="#API-Server" class="headerlink" title="API Server"></a>API Server</h4><blockquote>
+<p>变更(主框架)</p>
+<p>弃用: <code>Flask RESTFul API Server</code> 相关生态, 原因:</p>
+<ul>
+<li><a href="https://www.bilibili.com/video/av77591259?p=2" target="_blank" rel="noopener">基于 Flask 的 Web API 开发指南 - PyCon China 2019 上海 李辉</a> 分享的后半部分对相关 RESTFul API 的框架描述, 或见我的<a href="TODO">技术调研</a></li>
+</ul>
+<p>选用: <code>FastAPI</code>, 原因:</p>
+<ul>
+<li>开发效率提升(积极的 Type Hint 完美智能补全与自动校验, 提供灵活的方式来依赖注入)</li>
+<li>文档写的太好了 QAQ, 太适合学习了</li>
+<li>ASGI 看上去挺赞, 并且兼容传统写法</li>
+<li>内部使用库 <code>starlette</code> 组织开发了 <code>Django RESTFul Framework</code>, 质量值得信赖</li>
+</ul>
+<p>备用: <code>Django RESTFul Framework</code></p>
+<ul>
+<li>仍未实际使用过, 暂时搁置</li>
+</ul>
+</blockquote>
+<h5 id="该版本待实现事项："><a href="#该版本待实现事项：" class="headerlink" title="该版本待实现事项："></a>该版本待实现事项：</h5><ul>
+<li style="list-style: none"><input type="checkbox"> 用户鉴权:<ul>
+<li style="list-style: none"><input type="checkbox"> 注册</li>
+<li style="list-style: none"><input type="checkbox"> 登录</li>
+</ul>
+</li>
+</ul>
+<h4 id="Databases-1"><a href="#Databases-1" class="headerlink" title="Databases"></a>Databases</h4><p>暂时没选好, 其实目前也太不需要想, 暂时使用 <code>SQLite</code> 开发就好</p>
+<h1 id="总体参考-论文引用"><a href="#总体参考-论文引用" class="headerlink" title="总体参考[论文引用]"></a>总体参考[论文引用]</h1><p><a href="https://s2.sci-hub.org.cn/scholar?start=20&amp;q=%E6%97%B6%E9%97%B4%E7%AE%A1%E7%90%86+%E6%96%B9%E6%B3%95&amp;hl=zh-TW&amp;as_sdt=0,5" target="_blank" rel="noopener">时间管理 方法 - Sci-Hub文献检索</a></p>
+<p><a href="https://psycnet.apa.org/fulltext/1994-39368-001.html" target="_blank" rel="noopener">PsycNET</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Time_management" target="_blank" rel="noopener">Time management - Wikipedia</a></p>
+<p><a href="https://www.wsj.com/articles/SB109460145618411891" target="_blank" rel="noopener">To-Do Lists Can Take More Time Than Doing, But That Isn’t the Point - WSJ</a></p>
+<p><a href="https://zh.wikipedia.org/wiki/%E6%97%B6%E9%97%B4%E7%AE%A1%E7%90%86" target="_blank" rel="noopener">时间管理 - 维基百科，自由的百科全书</a></p>
+<p><a href="https://pennstatelearning.psu.edu/time-management" target="_blank" rel="noopener">Time Management | Penn State Learning</a></p>
+<p><a href="https://www.zhihu.com/search?type=content&amp;q=%E5%BE%AE%E6%9C%8D%E5%8A%A1%20%E8%AE%BA%E6%96%87" target="_blank" rel="noopener">微服务 论文 - 搜索结果 - 知乎</a></p>
+<p><a href="https://www.showdoc.cc/note?page_id=1390467302230065" target="_blank" rel="noopener">读思码–ShowDoc</a></p>
+<p><a href="http://cdmd.cnki.com.cn/Article/CDMD-10293-1017859549.htm" target="_blank" rel="noopener">基于微服务架构的系统设计与开发–《南京邮电大学》2017年硕士论文</a></p>
+<p><a href="http://cdmd.cnki.com.cn/Article/CDMD-90024-1012404732.htm" target="_blank" rel="noopener">大学生学习计划管理系统的开发研究–《第二军医大学》2012年硕士论文</a></p>
+<p><a href="http://cdmd.cnki.com.cn/Article/CDMD-10497-1013296405.htm" target="_blank" rel="noopener">基于REST架构的web服务技术研究–《武汉理工大学》2013年硕士论文</a></p>
+<p><a href="http://yuanjian.cnki.com.cn/cdmd/Search/index" target="_blank" rel="noopener">学位论文搜索结果_远见搜索</a></p>
+<p><a href="http://cdmd.cnki.com.cn/Article/CDMD-10532-1014233258.htm" target="_blank" rel="noopener">研究生课余时间管理研究–《湖南大学》2013年硕士论文</a></p>
+<p><a href="http://cdmd.cnki.com.cn/Article/CDMD-10004-1014178267.htm" target="_blank" rel="noopener">基于跨平台的移动应用开发框架研究–《北京交通大学》2014年硕士论文</a></p>
+<p><a href="http://cdmd.cnki.com.cn/Article/CDMD-10701-1013114286.htm" target="_blank" rel="noopener">面向服务的业务流程建模与验证研究–《西安电子科技大学》2012年博士论文</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <p>
+                
+                  <span>
+                <i class="iconfont icon-inbox"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/开发日记/">开发日记</a>
+                      &nbsp;
+                    
+                  </span>&nbsp;&nbsp;
+                
+                
+                  <span>
+                <i class="iconfont icon-tag"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Flutter/">Flutter</a>
+                    
+                  </span>
+                
+              </p>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/01/07/public-top-plans/">
+                        <i class="fa fa-chevron-left"></i>
+                        <span class="hidden-mobile">🚨 [置顶] 公开计划</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2019/12/25/wtf-python-scope-and-object-reference/">
+                        <span class="hidden-mobile">哇塞Python: 作用域与对象引用</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="fa fa-chevron-right"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+              
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc-start"></div>
+<div id="toc">
+  <p class="h5"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+    <div class="col-lg-7 mx-auto nopadding-md">
+      <div class="container custom mx-auto">
+        <style>.markdown-body p{ text-indent:2em; }</style>
+      </div>
+    </div>
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.staticfile.org/mdbootstrap/4.13.0/js/mdb.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.10.0/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var navHeight = $('#navbar').height();
+      var toc = $('#toc');
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+      var tocLimMax = 2 * boardTop + boardCtn.height();
+
+      $(window).scroll(function () {
+        var tocLimMin = $('#toc-start').offset().top - navHeight;
+        var scroH = document.body.scrollTop + document.documentElement.scrollTop;
+
+        if (tocLimMin <= scroH && scroH <= tocLimMax) {
+          toc.css({
+            'display': 'block',
+            'position': 'fixed',
+            'top': navHeight,
+          });
+        } else if (scroH <= tocLimMin) {
+          toc.css({
+            'position': '',
+            'top': '',
+          });
+        } else if (scroH > tocLimMax) {
+          toc.css('display', 'none');
+        }
+      });
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc > p').css('visibility', 'visible');
+      }
+      var offset = boardCtn.css('margin-right')
+      $('#toc-ctn').css({
+        'right': offset
+      })
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+
+<!-- Plugins -->
+
+
+
+  <script  src="https://cdn.staticfile.org/prettify/188.0.0/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "开发日记: 时间管理应用&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

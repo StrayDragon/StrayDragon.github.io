@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="做一个勤奋快乐的Coder ;)">
+  <meta name="author" content="StrayDragon">
+  <meta name="keywords" content>
+  <title>Linux命令行世界: 生存指南 - StrayDragon的小窝</title>
+
+  <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/5.12.1/css/all.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/mdbootstrap/4.13.0/css/mdb.min.css">
+<link rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/3.0.1/github-markdown.min.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+  <link rel="stylesheet" href="/lib/prettify/github-v2.min.css">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+  <link defer rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css">
+
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<link rel="alternate" href="/atom.xml" title="StrayDragon的小窝" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>StrayDragon的小窝</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">归档</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">分类</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">标签</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">关于</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/links/">友链</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <p class="mt-3 post-meta">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+                  星期一, 二月 10日 2020, 3:32 下午
+                </p>
+              
+
+              <p class="mt-1">
+                
+                  
+                  <span class="post-meta">
+                    <i class="far fa-chart-bar"></i>
+                    698 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta">
+                      <i class="far fa-clock"></i>
+                      3 分钟
+                  </span>
+                
+
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5 z-depth-3" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <div class="markdown-body">
+              <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/hint.css/2.4.1/hint.min.css"><p>RT
+我的读书笔记: 摘自《Linux命令行与Shell脚本编程大全》中那些有意义的技巧和命令…</p>
+<a id="more"></a>
+<p>鉴于Linux发行版太多了, 这里只会记录那些看上去通用的命令和技巧,旨在在大多数环境中正常工作.
+另请注意:</p>
+<ul>
+<li>这些命令运行在 TTY (<strong>T</strong>ele<strong>Ty</strong>peWriter) 或 TE(Terminal Emulator)中,为方便查找将以每个标题中以<code>--TTY/--TE/--TE/TTY</code>表示适用性.</li>
+<li>大多数终端下使用的命令都有man手册或-help/–help/…帮助信息,若想深入了解请输入那些命令查看</li>
+<li>占位符(placeholder) 一般使用大写字母(如: KEYWORD) 表示需要用户根据自己条件更改相应信息</li>
+</ul>
+<h1 id="命令-Commands"><a href="#命令-Commands" class="headerlink" title="命令 Commands"></a>命令 Commands</h1><h2 id="setterm-–TTY"><a href="#setterm-–TTY" class="headerlink" title="setterm –TTY"></a><code>setterm</code> –TTY</h2><pre><code class="bash">$ # 重见光明
+$ setterm -inversescreen on # 反转屏幕颜色 黑-&gt;白
+$ # 或者
+$ setterm -background white
+$ setterm -foreground black
+$
+$ # 感受色彩 COLOR: black,red,green,yellow,blue,magenta,cyan,white
+$ setterm -background COLOR
+$ setterm -foreground COLOR
+$
+$ # 一切归初
+$ setterm -reset
+</code></pre>
+<blockquote>
+<p>P19</p>
+</blockquote>
+<h2 id="man-–TE-TTY"><a href="#man-–TE-TTY" class="headerlink" title="man –TE/TTY"></a><code>man</code> –TE/TTY</h2><h3 id="按关键字查找已有手册"><a href="#按关键字查找已有手册" class="headerlink" title="按关键字查找已有手册"></a>按关键字查找已有手册</h3><pre><code class="bash">$ man -k KEYWORD # KEYWORD: 按关键字查找已有手册
+</code></pre>
+<blockquote>
+<p>P36</p>
+</blockquote>
+<h3 id="获取不同章节-section-下的手册"><a href="#获取不同章节-section-下的手册" class="headerlink" title="获取不同章节(section)下的手册"></a>获取不同章节(section)下的手册</h3><pre><code class="bash">$ man SECTION_NUMBER TARGET # 获取TARGET的SECTION_NUMBER的手册
+SECTION_NUMBER:
+       1   Executable programs or shell commands
+       2   System calls (functions provided by the kernel)
+       3   Library calls (functions within program libraries)
+       4   Special files (usually found in /dev)
+       5   File formats and conventions, e.g. /etc/passwd
+       6   Games
+       7   Miscellaneous (including macro packages and conventions), e.g. man(7), groff(7)
+       8   System administration commands (usually only for root)
+       9   Kernel routines [Non standard]
+</code></pre>
+<blockquote>
+<p>P37 以及 <code>$ man man</code></p>
+</blockquote>
+<h2 id="rm-–TE-TTY"><a href="#rm-–TE-TTY" class="headerlink" title="rm –TE/TTY"></a><code>rm</code> –TE/TTY</h2><h3 id="推荐替换默认rm命令-以防手划"><a href="#推荐替换默认rm命令-以防手划" class="headerlink" title="推荐替换默认rm命令,以防手划"></a>推荐替换默认<code>rm</code>命令,以防手划</h3><pre><code>$ alias rm=&#39;rm -i&#39;
+$ rm -i FILE
+rm: remove regular file &#39;FILE&#39;?:y&lt;CR&gt; # 确认删除
+# 或者
+rm: remove regular file &#39;FILE&#39;?:n&lt;CR&gt; # 取消
+</code></pre><h1 id="Notes"><a href="#Notes" class="headerlink" title="Notes:"></a>Notes:</h1><h2 id="从哪里知道启动哪个Shell"><a href="#从哪里知道启动哪个Shell" class="headerlink" title="从哪里知道启动哪个Shell?"></a>从哪里知道启动哪个Shell?</h2><pre><code class="bash">$ cat /etc/passwd | grep USERNAME # USERNAME: 如 root
+USERNAME:x:1000:1000:USERNAME:/home/USERNAME:/usr/bin/zsh # &lt;- 这里即默认启动的Shell
+</code></pre>
+<blockquote>
+<p>P33</p>
+</blockquote>
+<h2 id="Linux文件目录含义与名称"><a href="#Linux文件目录含义与名称" class="headerlink" title="Linux文件目录含义与名称"></a>Linux文件目录含义与名称</h2><p>TODO</p>
+<blockquote>
+<p>P39</p>
+</blockquote>
+<h2 id="Linux文件权限见ls-l-输出"><a href="#Linux文件权限见ls-l-输出" class="headerlink" title="Linux文件权限见ls -l 输出"></a>Linux文件权限见<code>ls -l</code> 输出</h2><p>TODO</p>
+<blockquote>
+<p>P43,45</p>
+</blockquote>
+<h2 id="适用于模式匹配的内置命令"><a href="#适用于模式匹配的内置命令" class="headerlink" title="适用于模式匹配的内置命令"></a>适用于模式匹配的内置命令</h2><ul>
+<li><code>?</code>(1), <code>*</code>(0 or N)</li>
+<li><code>[CHARACTERS]</code>(可选列表) <code>[!CHARACTERS]</code>(排除列表)</li>
+</ul>
+<blockquote>
+<p>P45</p>
+</blockquote>
+<h2 id="链接文件"><a href="#链接文件" class="headerlink" title="链接文件"></a>链接文件</h2><ul>
+<li>符号链接/软链接</li>
+<li>硬链接</li>
+</ul>
+<h1 id="基本命令清单备忘录"><a href="#基本命令清单备忘录" class="headerlink" title="基本命令清单备忘录"></a>基本命令清单备忘录</h1><ul>
+<li><code>CMD</code>  : 代表这个CMD默认来自外部指令(非内建)</li>
+<li><code>CMD</code>*: 代表这个CMD默认来自Shell(Bash-like)自身或保留字(内建)</li>
+<li><code>CMD</code>+ : 代表这个CMD有内建和非内建的实现<blockquote>
+<p>可以用 <code>type CMD</code> 来判断内建/非内建指令</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="Shell环境管理"><a href="#Shell环境管理" class="headerlink" title="Shell环境管理"></a>Shell环境管理</h2><h3 id="增"><a href="#增" class="headerlink" title="增"></a>增</h3><h4 id="export"><a href="#export" class="headerlink" title="export*"></a><code>export</code>*</h4><h4 id="lt-env-gt-quot-lt-value-gt-quot"><a href="#lt-env-gt-quot-lt-value-gt-quot" class="headerlink" title="&lt;env&gt;=&quot;&lt;value&gt;&quot;"></a><code>&lt;env&gt;=&quot;&lt;value&gt;&quot;</code></h4><h3 id="删"><a href="#删" class="headerlink" title="删"></a>删</h3><h4 id="unset"><a href="#unset" class="headerlink" title="unset*"></a><code>unset</code>*</h4><h3 id="查"><a href="#查" class="headerlink" title="查"></a>查</h3><h4 id="printenv"><a href="#printenv" class="headerlink" title="printenv"></a><code>printenv</code></h4><h4 id="env"><a href="#env" class="headerlink" title="env"></a><code>env</code></h4><h4 id="set"><a href="#set" class="headerlink" title="set*"></a><code>set</code>*</h4><h4 id="echo"><a href="#echo" class="headerlink" title="echo+"></a><code>echo</code>+</h4><h2 id="命令管理"><a href="#命令管理" class="headerlink" title="命令管理"></a>命令管理</h2><h3 id="type"><a href="#type" class="headerlink" title="type*"></a><code>type</code>*</h3><h3 id="which"><a href="#which" class="headerlink" title="which*"></a><code>which</code>*</h3><h3 id="history"><a href="#history" class="headerlink" title="history*"></a><code>history</code>*</h3><h3 id="alias"><a href="#alias" class="headerlink" title="alias*"></a><code>alias</code>*</h3><h2 id="路径管理"><a href="#路径管理" class="headerlink" title="路径管理"></a>路径管理</h2><h3 id="cd"><a href="#cd" class="headerlink" title="cd*"></a><code>cd</code>*</h3><h3 id="pwd"><a href="#pwd" class="headerlink" title="pwd*"></a><code>pwd</code>*</h3><h2 id="文件管理"><a href="#文件管理" class="headerlink" title="文件管理"></a>文件管理</h2><h3 id="增-1"><a href="#增-1" class="headerlink" title="增"></a>增</h3><h4 id="touch"><a href="#touch" class="headerlink" title="touch"></a><code>touch</code></h4><h4 id="ln"><a href="#ln" class="headerlink" title="ln"></a><code>ln</code></h4><h4 id="mkdir"><a href="#mkdir" class="headerlink" title="mkdir"></a><code>mkdir</code></h4><h4 id="cp"><a href="#cp" class="headerlink" title="cp"></a><code>cp</code></h4><h4 id="gzip-zip-…-gunzip-unzip-…-tar"><a href="#gzip-zip-…-gunzip-unzip-…-tar" class="headerlink" title="gzip,zip,… / gunzip,unzip,… | tar"></a><code>gzip</code>,<code>zip</code>,… / <code>gunzip</code>,<code>unzip</code>,… | <code>tar</code></h4><h3 id="删-1"><a href="#删-1" class="headerlink" title="删"></a>删</h3><h4 id="rm"><a href="#rm" class="headerlink" title="rm"></a><code>rm</code></h4><h3 id="改"><a href="#改" class="headerlink" title="改"></a>改</h3><h4 id="mv"><a href="#mv" class="headerlink" title="mv"></a><code>mv</code></h4><h4 id="umask"><a href="#umask" class="headerlink" title="umask"></a><code>umask</code></h4><h4 id="chmod"><a href="#chmod" class="headerlink" title="chmod"></a><code>chmod</code></h4><h4 id="chown"><a href="#chown" class="headerlink" title="chown"></a><code>chown</code></h4><h4 id="chgrp"><a href="#chgrp" class="headerlink" title="chgrp"></a><code>chgrp</code></h4><h4 id="sed"><a href="#sed" class="headerlink" title="sed"></a><code>sed</code></h4><h4 id="gawk"><a href="#gawk" class="headerlink" title="gawk"></a><code>gawk</code></h4><h3 id="查-1"><a href="#查-1" class="headerlink" title="查"></a>查</h3><h4 id="ls"><a href="#ls" class="headerlink" title="ls"></a><code>ls</code></h4><h4 id="file"><a href="#file" class="headerlink" title="file"></a><code>file</code></h4><h4 id="cat"><a href="#cat" class="headerlink" title="cat"></a><code>cat</code></h4><h4 id="more-less"><a href="#more-less" class="headerlink" title="more/less"></a><code>more</code>/<code>less</code></h4><h4 id="head-tail"><a href="#head-tail" class="headerlink" title="head/tail"></a><code>head</code>/<code>tail</code></h4><h4 id="du"><a href="#du" class="headerlink" title="du"></a><code>du</code></h4><h4 id="sort"><a href="#sort" class="headerlink" title="sort"></a><code>sort</code></h4><h4 id="grep"><a href="#grep" class="headerlink" title="grep"></a><code>grep</code></h4><h2 id="文件系统管理"><a href="#文件系统管理" class="headerlink" title="文件系统管理"></a>文件系统管理</h2><ul>
+<li><code>fdisk</code></li>
+<li><code>mkfs.*</code></li>
+<li><code>fsck</code></li>
+</ul>
+<h2 id="进程-Process-管理"><a href="#进程-Process-管理" class="headerlink" title="进程(Process)管理"></a>进程(Process)管理</h2><h3 id="增-2"><a href="#增-2" class="headerlink" title="增"></a>增</h3><h4 id="sleep"><a href="#sleep" class="headerlink" title="sleep"></a><code>sleep</code></h4><h4 id="CMD-amp"><a href="#CMD-amp" class="headerlink" title="CMD &amp;"></a><code>CMD &amp;</code></h4><h4 id="nohup"><a href="#nohup" class="headerlink" title="nohup"></a><code>nohup</code></h4><h4 id="bg"><a href="#bg" class="headerlink" title="bg*"></a><code>bg</code>*</h4><h4 id="nice"><a href="#nice" class="headerlink" title="nice"></a><code>nice</code></h4><h3 id="删-2"><a href="#删-2" class="headerlink" title="删"></a>删</h3><h4 id="kill"><a href="#kill" class="headerlink" title="kill"></a><code>kill</code></h4><h4 id="killall"><a href="#killall" class="headerlink" title="killall"></a><code>killall</code></h4><h4 id="exit"><a href="#exit" class="headerlink" title="exit"></a><code>exit</code></h4><h3 id="改-1"><a href="#改-1" class="headerlink" title="改"></a>改</h3><h4 id="renice"><a href="#renice" class="headerlink" title="renice"></a><code>renice</code></h4><h3 id="查-2"><a href="#查-2" class="headerlink" title="查"></a>查</h3><h4 id="ps"><a href="#ps" class="headerlink" title="ps*"></a><code>ps</code>*</h4><h4 id="jobs"><a href="#jobs" class="headerlink" title="jobs*"></a><code>jobs</code>*</h4><h4 id="coproc"><a href="#coproc" class="headerlink" title="coproc*"></a><code>coproc</code>*</h4><h4 id="lsof"><a href="#lsof" class="headerlink" title="lsof"></a><code>lsof</code></h4><h2 id="磁盘-Disk-管理"><a href="#磁盘-Disk-管理" class="headerlink" title="磁盘(Disk)管理"></a>磁盘(Disk)管理</h2><h3 id="增-3"><a href="#增-3" class="headerlink" title="增"></a>增</h3><h4 id="mount"><a href="#mount" class="headerlink" title="mount"></a><code>mount</code></h4><h3 id="删-3"><a href="#删-3" class="headerlink" title="删"></a>删</h3><h4 id="unmount"><a href="#unmount" class="headerlink" title="unmount"></a><code>unmount</code></h4><h3 id="查-3"><a href="#查-3" class="headerlink" title="查"></a>查</h3><h4 id="df"><a href="#df" class="headerlink" title="df"></a><code>df</code></h4><h2 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h2><h3 id="增-4"><a href="#增-4" class="headerlink" title="增"></a>增</h3><ul>
+<li><code>useradd</code><h3 id="删-4"><a href="#删-4" class="headerlink" title="删"></a>删</h3></li>
+<li><code>userdel</code><h3 id="改-2"><a href="#改-2" class="headerlink" title="改"></a>改</h3></li>
+<li><code>usermod</code></li>
+<li><code>passwd</code> / <code>chpasswd</code></li>
+<li><code>chage</code></li>
+<li><code>chage</code></li>
+<li><code>chsh</code></li>
+</ul>
+<h2 id="用户组管理"><a href="#用户组管理" class="headerlink" title="用户组管理"></a>用户组管理</h2><h3 id="增-5"><a href="#增-5" class="headerlink" title="增"></a>增</h3><ul>
+<li><code>groupadd</code><h3 id="改-3"><a href="#改-3" class="headerlink" title="改"></a>改</h3></li>
+<li><code>groupmod</code></li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <p>
+                
+                  <span>
+                <i class="iconfont icon-inbox"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/读书笔记/">读书笔记</a>
+                      &nbsp;
+                    
+                      <a class="hover-with-bg" href="/categories/读书笔记/备忘录/">备忘录</a>
+                      &nbsp;
+                    
+                  </span>&nbsp;&nbsp;
+                
+                
+                  <span>
+                <i class="iconfont icon-tag"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Linux/">Linux</a>
+                    
+                  </span>
+                
+              </p>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/01/14/my-tools/">
+                        <span class="hidden-mobile">我的工具链</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="fa fa-chevron-right"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+              
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc-start"></div>
+<div id="toc">
+  <p class="h5"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+    <div class="col-lg-7 mx-auto nopadding-md">
+      <div class="container custom mx-auto">
+        <style>.markdown-body p{ text-indent:2em; }</style>
+      </div>
+    </div>
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/popper.js/1.16.1/umd/popper.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="https://cdn.staticfile.org/mdbootstrap/4.13.0/js/mdb.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.10.0/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var navHeight = $('#navbar').height();
+      var toc = $('#toc');
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+      var tocLimMax = 2 * boardTop + boardCtn.height();
+
+      $(window).scroll(function () {
+        var tocLimMin = $('#toc-start').offset().top - navHeight;
+        var scroH = document.body.scrollTop + document.documentElement.scrollTop;
+
+        if (tocLimMin <= scroH && scroH <= tocLimMax) {
+          toc.css({
+            'display': 'block',
+            'position': 'fixed',
+            'top': navHeight,
+          });
+        } else if (scroH <= tocLimMin) {
+          toc.css({
+            'position': '',
+            'top': '',
+          });
+        } else if (scroH > tocLimMax) {
+          toc.css('display', 'none');
+        }
+      });
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc > p').css('visibility', 'visible');
+      }
+      var offset = boardCtn.css('margin-right')
+      $('#toc-ctn').css({
+        'right': offset
+      })
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+
+
+<!-- Plugins -->
+
+
+
+  <script  src="https://cdn.staticfile.org/prettify/188.0.0/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  linenums');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Linux命令行世界: 生存指南&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script defer src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
